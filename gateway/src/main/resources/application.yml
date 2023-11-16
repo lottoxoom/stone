@@ -1,0 +1,44 @@
+server:
+  port: 8015
+
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    #getway配置
+
+    ##### 动态路由设置时，uri以 lb: //开头（lb代表从注册中⼼获取服务），后⾯是需要转发到的服务名称
+    gateway:
+      routes: # 路由可以有多个
+        - id: people # 我们⾃定义的路由 ID，保持唯⼀
+          #uri: http://127.0.0.1:8082 # ⽬标服务地址 部署多实例） 动态路由：uri配置的应该是⼀个服务名称，⽽不应该是⼀个具体的服务实例的地址
+
+          uri: lb://user-caller # ⽬标服务地址 部署多实例） 动态路由：uri配置的应该是⼀个服务名称，⽽不应该是⼀个具体的服务实例的地址
+          # gateway⽹关从服务注册中⼼获取实例信息然后负载后路由
+
+          predicates: #断⾔：路由条件，Predicate 接受⼀个输⼊参数，返回⼀个布尔值结果。该接⼝包含多种默 认⽅法来将 Predicate 组合成其他复杂的逻辑（⽐如：与，或，⾮）。
+            - Path=/login/**
+          filters:
+            - StripPrefix=1
+      enabled: true
+  profiles:
+    active: application-common.properties
+#zuul:
+#  routes:
+#    api-a: #用来区分不同服务的一个名字，可以随便取
+#      path: /user/** #zuul网关访问服务的一个路径
+#      serviceId: user-caller #所要访问的服务对应的注册中心的名称
+#
+#      #服务分发的方式是这样的，我们通过localhost:8015/user访问，实际是将地址映射到了user-caller 这个服务的地址上
+#
+#    # 传统的路由
+#    api-b-url:
+#      path: /user/**
+#      #由传统的路由模式，我们可以知道用户访问的路由路径为localhost:8015/caller，将服务映射到了http://localhost:8012
+#      url: http://localhost:8012/
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8011/eureka/
+

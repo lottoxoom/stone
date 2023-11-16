@@ -1,0 +1,43 @@
+server:
+  port: 8080
+
+# 注册中心地址
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8011/eureka/
+  instance:
+    prefer-ip-address: true
+
+spring:
+  application:
+         name: user
+
+  datasource:
+    username: root
+    password:
+    #url中database为对应的数据库名称
+    url: jdbc:mysql://localhost:3306/assetlink?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    password:
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: 1
+        max-idle: 8
+        min-idle: 0
+    timeout: 5000
+
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.island.stone.entity
+
+#showSql
+logging:
+  level:
+    com.example.demo.mapper: debug
