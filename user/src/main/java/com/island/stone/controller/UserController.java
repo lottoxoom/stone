@@ -19,7 +19,7 @@ public class UserController {
    @Autowired
    private IUserService userService;
 
-    //获取用户所有信息
+    //获取用户信息
     @GetMapping("/getUser/{id}")
     public String getUser(@PathVariable("id") int id) {
         return userService.getUserInfo(id).toString();
