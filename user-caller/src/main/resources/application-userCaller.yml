@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: user-caller
+  profiles:
+    active: userCaller
 
 # 注册中心地址
 eureka:

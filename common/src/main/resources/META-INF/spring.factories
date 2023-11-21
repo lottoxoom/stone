@@ -1,0 +1,5 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.island.stone.common.config.RedissonConfig,\
+com.island.stone.common.config.RedisConfig,\
+com.island.stone.common.config.ThreadPoolConfig

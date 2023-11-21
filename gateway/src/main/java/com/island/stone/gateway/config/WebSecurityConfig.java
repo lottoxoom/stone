@@ -41,16 +41,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
-        super.configure(web);
-    }
-
-    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 /** 路径拦截，表明路径访问所对应的权限，角色，认证信息*/
                 .authorizeRequests()
-                .antMatchers("/resources/**","/user","").permitAll()
+                .antMatchers("/resources/**","/user").permitAll()
                 .antMatchers("/user").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
@@ -78,4 +73,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        super.configure(web);
+    }
 }

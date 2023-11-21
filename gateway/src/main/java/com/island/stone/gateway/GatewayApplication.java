@@ -1,12 +1,14 @@
 package com.island.stone.gateway;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 
 @EnableDiscoveryClient
-@SpringBootApplication(scanBasePackages = {"com.island.stone"})
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class GatewayApplication {
 
     public static void main(String[] args) {
